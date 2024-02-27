@@ -1,33 +1,26 @@
-# attribuer un nom au flux de travail.
-name: Test pytest and flack8 conttrol push
-# Définir l'action sur "push".
-on: push 
-
-# ajouter jobs 
+name: Control Push
+on: push
 jobs:
   qa:
-  name: check tests
-  runs-on: ubuntu-20.04
-  # Maintenant, configurons nos étapes.
-  # Nous avons 5 étapes :
-  steps: 
-  -name: chechout on master
-   uses: actions/chekout@v3
+    name: Check tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout on master
+        uses: actions/checkout@v3
 
-   -name: Set -up python 
-    uses: actions/setup-python@master
-    with:
-    python-version: "3.x"
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: "3.x"
 
-    -name: install pytest and flack8
-     run: |
-     pip install pytest
-     pip install flack8
+      - name: Install pytest and flake8
+        run: |
+          pip install pytest
+          pip install flake8
 
-    -name: Ruen tests
-      run: | 
-       pytest
+      - name: Run tests
+        run: |
+          pytest
 
-      -name: Run flack8
-       uses:py-actions/flack8@v2
-       
+      - name: Run flake8
+        uses: py-actions/flake8@v2
